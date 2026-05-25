@@ -26,9 +26,13 @@ const CryptoDashboard = ({ currency = 'usd', perPage = 24 }: { currency?: string
       setLoading(true);
       setError(null);
 
+      console.log('CryptoDashboard: starting fetchCoinRates', { currency, perPage });
+
       try {
+        const requestUrl = `${apiBaseUrl}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${perPage}&page=1&sparkline=false&price_change_percentage=24h,7d,14d,30d`;
+        console.log('CryptoDashboard: requesting', requestUrl);
         const response = await axios.get(
-          `${apiBaseUrl}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${perPage}&page=1&sparkline=false&price_change_percentage=24h,7d,14d,30d`,
+          requestUrl,
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_COINGECKO_API_KEY}`,
