@@ -41,8 +41,12 @@ const CryptoDashboard = ({ currency = 'usd', perPage = 24 }: { currency?: string
         );
 
         setCoins(response.data || []);
-      } catch (fetchError) {
+      } catch (fetchError: any) {
         console.error('Error fetching coin rates:', fetchError);
+        console.error('Fetch error message:', fetchError?.message);
+        console.error('Fetch error response status:', fetchError?.response?.status);
+        console.error('Fetch error response data:', fetchError?.response?.data);
+        console.error('Fetch error request object:', fetchError?.request);
         setError('Unable to load market data at the moment.');
       } finally {
         setLoading(false);
